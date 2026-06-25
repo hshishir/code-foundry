@@ -1,0 +1,120 @@
+.af-shell {
+  min-width: 320px;
+}
+
+.af-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--af-space-5);
+  padding: var(--af-space-3) var(--af-space-6);
+  border-bottom: 1px solid var(--af-color-border);
+  background: color-mix(in srgb, var(--af-color-bg) 92%, transparent);
+  backdrop-filter: blur(16px);
+}
+
+.af-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--af-space-3);
+  min-width: 190px;
+}
+
+.af-brand-mark {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 1px solid var(--af-color-border-strong);
+  border-radius: var(--af-radius-md);
+  background: var(--af-color-text);
+  color: var(--af-color-bg);
+  font-family: var(--af-font-mono);
+  font-size: var(--af-text-xs);
+  font-weight: 700;
+}
+
+.af-brand strong,
+.af-brand small {
+  display: block;
+}
+
+.af-brand small {
+  color: var(--af-color-muted);
+  font-size: var(--af-text-xs);
+}
+
+.af-nav {
+  display: flex;
+  gap: var(--af-space-2);
+}
+
+.af-nav-link {
+  border-radius: var(--af-radius-sm);
+  color: var(--af-color-muted);
+  padding: 6px 10px;
+  font-weight: 500;
+}
+
+.af-nav-link:hover {
+  background: var(--af-color-surface);
+  color: var(--af-color-text);
+}
+
+.af-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--af-space-2);
+}
+
+.af-page {
+  width: min(1440px, 100%);
+  margin: 0 auto;
+  padding: var(--af-space-8) var(--af-space-6);
+}
+
+.af-page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--af-space-6);
+  margin-bottom: var(--af-space-6);
+}
+
+.af-page-header h1 {
+  margin: 0;
+  font-size: var(--af-text-xl);
+  letter-spacing: 0;
+  line-height: 1.15;
+}
+
+.af-page-header--split {
+  align-items: center;
+}
+
+.af-heading-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--af-space-3);
+  margin-top: var(--af-space-3);
+  color: var(--af-color-muted);
+}
+
+.af-grid {
+  display: grid;
+  gap: var(--af-space-5);
+}
+
+.af-grid--dashboard {
+  grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+  align-items: start;
+}
+
+.af-grid--detail {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  margin-bottom: var(--af-space-5);
+}
+

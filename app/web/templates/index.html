@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% import "macros/ui.html" as ui %}
+
+{% block title %}Dashboard - Code Foundry{% endblock %}
+
+{% block content %}
+<section class="af-page-header">
+  <div>
+    <p class="af-kicker">Phase 0.5</p>
+    <h1>Feature workflow dashboard</h1>
+    <p class="af-muted">Track ideas, specs, implementation, review, and blocked work from one operational surface.</p>
+  </div>
+</section>
+
+<section class="af-stats" aria-label="Feature stats">
+  <article class="af-stat"><span>Total</span><strong>{{ total_features }}</strong></article>
+  <article class="af-stat"><span>Ideas</span><strong>{{ counts.idea }}</strong></article>
+  <article class="af-stat"><span>Spec ready</span><strong>{{ counts.spec_ready }}</strong></article>
+  <article class="af-stat"><span>Implementing</span><strong>{{ counts.implementing }}</strong></article>
+  <article class="af-stat"><span>Completed</span><strong>{{ counts.implemented + counts.reviewed }}</strong></article>
+  <article class="af-stat"><span>Blocked</span><strong>{{ counts.blocked }}</strong></article>
+</section>
+
+<section class="af-grid af-grid--dashboard">
+  <form class="af-panel af-form" action="/features/create" method="post">
+    <div class="af-panel-heading">
+      <h2>Create feature</h2>
+      <p class="af-muted">Capture the next unit of work.</p>
+    </div>
+    <label class="af-field">
+      <span>Title</span>
+      <input name="title" type="text" required maxlength="255" placeholder="Idea to evaluate">
+    </label>
+    <label class="af-field">
+      <span>Description</span>
+      <textarea name="description" required rows="6" placeholder="What should this workflow eventually produce?"></textarea>
+    </label>
+    <button class="af-button af-button--primary" type="submit">{{ ui.icon("check") }} Create feature</button>
+  </form>
+
+  <section class="af-panel af-table-panel">
+    <div class="af-panel-heading af-panel-heading--row">
+      <div>
+        <h2>Features</h2>
+        <p class="af-muted">Operational backlog and lifecycle state.</p>
+      </div>
+    </div>
+    {% if features %}
+      <div class="af-table-wrap">
+        <table class="af-table" data-feature-table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th>Updated</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for feature in features %}
+              <tr data-feature-row>
+                <td class="af-mono">#{{ feature.id }}</td>
+                <td><a class="af-table-title" href="/features/{{ feature.id }}/view">{{ feature.title }}</a></td>
+                <td>{{ ui.status_badge(feature.status) }}</td>
+                <td>{{ ui.timestamp(feature.created_at) }}</td>
+                <td>{{ ui.timestamp(feature.updated_at) }}</td>
+                <td>
+                  <div class="af-actions">
+                    <a class="af-button af-button--secondary af-button--small" href="/features/{{ feature.id }}/view">View {{ ui.icon("arrow") }}</a>
+                    <form action="/features/{{ feature.id }}/status" method="post" class="af-inline-form">
+                      <select name="status" aria-label="Update status for {{ feature.title }}" onchange="this.form.submit()">
+                        {% for status in feature_statuses %}
+                          <option value="{{ status.value }}" {% if status == feature.status %}selected{% endif %}>{{ status.value.replace("_", " ") }}</option>
+                        {% endfor %}
+                      </select>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="af-empty">
+        <h3>No features yet</h3>
+        <p>Create the first feature to start building the workflow spine.</p>
+      </div>
+    {% endif %}
+  </section>
+</section>
+{% endblock %}
+

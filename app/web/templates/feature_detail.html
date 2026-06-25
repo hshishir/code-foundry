@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% import "macros/ui.html" as ui %}
+
+{% block title %}Feature #{{ feature.id }} - Code Foundry{% endblock %}
+
+{% block content %}
+<section class="af-page-header af-page-header--split">
+  <div>
+    <p class="af-kicker">Feature #{{ feature.id }}</p>
+    <h1>{{ feature.title }}</h1>
+    <div class="af-heading-meta">
+      {{ ui.status_badge(feature.status) }}
+      <span>Created {{ ui.timestamp(feature.created_at) }}</span>
+      <span>Updated {{ ui.timestamp(feature.updated_at) }}</span>
+    </div>
+  </div>
+  <a class="af-button af-button--secondary" href="/">Back to dashboard</a>
+</section>
+
+<section class="af-grid af-grid--detail">
+  <section class="af-panel">
+    <div class="af-panel-heading">
+      <h2>Description</h2>
+    </div>
+    <p class="af-description">{{ feature.description }}</p>
+  </section>
+
+  <aside class="af-panel">
+    <div class="af-panel-heading">
+      <h2>Status</h2>
+      <p class="af-muted">Move this feature through the Phase 0 lifecycle.</p>
+    </div>
+    <form action="/features/{{ feature.id }}/status" method="post" class="af-form">
+      <label class="af-field">
+        <span>Status</span>
+        <select name="status">
+          {% for status in feature_statuses %}
+            <option value="{{ status.value }}" {% if status == feature.status %}selected{% endif %}>{{ status.value.replace("_", " ") }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <button class="af-button af-button--primary" type="submit">Update status</button>
+    </form>
+  </aside>
+</section>
+
+<section class="af-panel">
+  <div class="af-panel-heading">
+    <h2>Related sessions</h2>
+    <p class="af-muted">Designer, coder, and reviewer sessions connected to this feature.</p>
+  </div>
+  {% if sessions %}
+    <div class="af-table-wrap">
+      <table class="af-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Persona</th>
+            <th>Status</th>
+            <th>Notes</th>
+            <th>Updated</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for session in sessions %}
+            <tr>
+              <td class="af-mono">#{{ session.id }}</td>
+              <td>{{ ui.persona_badge(session.persona) }}</td>
+              <td>{{ ui.session_status_badge(session.status) }}</td>
+              <td class="af-note">{{ session.notes or "No notes" }}</td>
+              <td>{{ ui.timestamp(session.updated_at) }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="af-empty">
+      <h3>No sessions attached</h3>
+      <p>Sessions can be created through the JSON API and will appear here when linked to this feature.</p>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}
+

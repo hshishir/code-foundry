@@ -1,0 +1,48 @@
+.af-table-panel {
+  min-width: 0;
+}
+
+.af-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.af-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+.af-table th,
+.af-table td {
+  border-bottom: 1px solid var(--af-color-border);
+  padding: 11px 14px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.af-table th {
+  color: var(--af-color-muted);
+  font-size: var(--af-text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.af-table td {
+  color: var(--af-color-text);
+}
+
+.af-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.af-table-title {
+  color: var(--af-color-text);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.af-table-title:hover {
+  color: var(--af-color-accent);
+}
+

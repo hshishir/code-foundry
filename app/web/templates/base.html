@@ -1,0 +1,47 @@
+{% import "macros/ui.html" as ui %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Code Foundry{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/main.css') }}">
+    <script src="{{ url_for('static', path='js/theme.js') }}" defer></script>
+    <script src="{{ url_for('static', path='js/toast.js') }}" defer></script>
+    <script src="{{ url_for('static', path='js/dashboard.js') }}" defer></script>
+  </head>
+  <body class="af-shell">
+    <header class="af-topbar">
+      <a class="af-brand" href="/">
+        <span class="af-brand-mark">CF</span>
+        <span>
+          <strong>Code Foundry</strong>
+          <small>workflow control plane</small>
+        </span>
+      </a>
+      <nav class="af-nav" aria-label="Primary">
+        <a href="/" class="af-nav-link">Features</a>
+        <a href="/sessions" class="af-nav-link">Sessions</a>
+      </nav>
+      <div class="af-topbar-actions">
+        <label class="af-search">
+          {{ ui.icon("search") }}
+          <input data-dashboard-search type="search" placeholder="Search features">
+        </label>
+        <button class="af-button af-button--subtle af-icon-button" type="button" data-theme-toggle aria-label="Toggle theme">
+          {{ ui.icon("sun") }}
+        </button>
+      </div>
+    </header>
+
+    <main class="af-page">
+      {% block content %}{% endblock %}
+    </main>
+
+    <div class="af-toast-region" data-toast-region aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>
+

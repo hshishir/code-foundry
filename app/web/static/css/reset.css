@@ -1,0 +1,42 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--af-color-bg);
+  color: var(--af-color-text);
+  font-family: var(--af-font-sans);
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background: var(--af-color-bg);
+  color: var(--af-color-text);
+  font-size: var(--af-text-sm);
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+svg {
+  display: block;
+}
+

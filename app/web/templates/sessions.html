@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% import "macros/ui.html" as ui %}
+
+{% block title %}Sessions - Code Foundry{% endblock %}
+
+{% block content %}
+<section class="af-page-header">
+  <div>
+    <p class="af-kicker">Execution sessions</p>
+    <h1>Session inventory</h1>
+    <p class="af-muted">Track persona work sessions and their current lifecycle state.</p>
+  </div>
+</section>
+
+<section class="af-panel">
+  <div class="af-panel-heading">
+    <h2>All sessions</h2>
+    <p class="af-muted">Sessions are API-created in Phase 0.5 and displayed here for control-plane visibility.</p>
+  </div>
+  {% if sessions %}
+    <div class="af-table-wrap">
+      <table class="af-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Persona</th>
+            <th>Status</th>
+            <th>Feature</th>
+            <th>Notes</th>
+            <th>Created</th>
+            <th>Updated</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for session in sessions %}
+            <tr>
+              <td class="af-mono">#{{ session.id }}</td>
+              <td>{{ ui.persona_badge(session.persona) }}</td>
+              <td>{{ ui.session_status_badge(session.status) }}</td>
+              <td>
+                {% if session.feature %}
+                  <a class="af-table-title" href="/features/{{ session.feature.id }}/view">#{{ session.feature.id }} {{ session.feature.title }}</a>
+                {% elif session.feature_id %}
+                  <span class="af-muted">#{{ session.feature_id }}</span>
+                {% else %}
+                  <span class="af-muted">Unlinked</span>
+                {% endif %}
+              </td>
+              <td class="af-note">{{ session.notes or "No notes" }}</td>
+              <td>{{ ui.timestamp(session.created_at) }}</td>
+              <td>{{ ui.timestamp(session.updated_at) }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="af-empty">
+      <h3>No sessions yet</h3>
+      <p>Create sessions through the API to see persona work tracked here.</p>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}
+
