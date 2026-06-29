@@ -7,6 +7,7 @@ from app.core.enums import FeatureStatus
 from app.db.database import get_db
 from app.schemas.features import FeatureCreate
 from app.schemas.sessions import SessionRead
+from app.services import agents as agent_service
 from app.services import features as feature_service
 from app.services import sessions as session_service
 
@@ -30,11 +31,13 @@ def feature_counts(features: list) -> dict[str, int]:
 @router.get("/", response_class=HTMLResponse)
 def dashboard(request: Request, db: Session = Depends(get_db)):
     features = feature_service.list_features(db)
+    sessions = session_service.list_sessions(db)
     return templates.TemplateResponse(
         request,
         "index.html",
         {
             "features": features,
+            "implemented_agents": agent_service.list_implemented_agents(sessions),
             "counts": feature_counts(features),
             "total_features": len(features),
             "feature_statuses": list(FeatureStatus),

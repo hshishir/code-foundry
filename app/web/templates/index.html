@@ -21,6 +21,39 @@
   <article class="af-stat"><span>Blocked</span><strong>{{ counts.blocked }}</strong></article>
 </section>
 
+<section class="af-panel af-agent-panel" aria-labelledby="implemented-agents-heading">
+  <div class="af-panel-heading af-panel-heading--row">
+    <div>
+      <h2 id="implemented-agents-heading">Implemented agents</h2>
+      <p class="af-muted">Deterministic local agents currently available to the workflow runner.</p>
+    </div>
+  </div>
+  <div class="af-agent-list">
+    {% for agent in implemented_agents %}
+      <article class="af-agent-card">
+        <div class="af-agent-card__header">
+          <div>
+            <h3>{{ agent.label }}</h3>
+            {{ ui.persona_badge(agent.persona) }}
+          </div>
+          <span class="af-badge af-badge--implemented">Implemented</span>
+        </div>
+        <p>{{ agent.responsibility }}</p>
+        <dl class="af-agent-meta">
+          <div>
+            <dt>Artifact</dt>
+            <dd class="af-mono">{{ agent.artifact }}</dd>
+          </div>
+          <div>
+            <dt>Running sessions</dt>
+            <dd>{{ agent.running_sessions }}</dd>
+          </div>
+        </dl>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
 <section class="af-grid af-grid--dashboard">
   <form class="af-panel af-form" action="/features/create" method="post">
     <div class="af-panel-heading">
@@ -92,4 +125,3 @@
   </section>
 </section>
 {% endblock %}
-

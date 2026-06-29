@@ -15,6 +15,10 @@
   .af-stats {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+
+  .af-agent-list {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 700px) {
@@ -59,4 +63,3 @@
     grid-template-columns: 1fr;
   }
 }
-

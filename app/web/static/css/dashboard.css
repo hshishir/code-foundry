@@ -27,6 +27,69 @@
   line-height: 1;
 }
 
+.af-agent-panel {
+  margin-bottom: var(--af-space-5);
+}
+
+.af-agent-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--af-space-3);
+  padding: var(--af-space-5);
+}
+
+.af-agent-card {
+  display: grid;
+  min-width: 0;
+  gap: var(--af-space-4);
+  border: 1px solid var(--af-color-border);
+  border-radius: var(--af-radius-md);
+  background: var(--af-color-bg);
+  padding: var(--af-space-4);
+}
+
+.af-agent-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--af-space-3);
+}
+
+.af-agent-card h3,
+.af-agent-card p,
+.af-agent-meta {
+  margin: 0;
+}
+
+.af-agent-card h3 {
+  margin-bottom: var(--af-space-2);
+  font-size: var(--af-text-md);
+}
+
+.af-agent-card p {
+  color: var(--af-color-muted);
+}
+
+.af-agent-meta {
+  display: grid;
+  gap: var(--af-space-3);
+}
+
+.af-agent-meta div {
+  min-width: 0;
+}
+
+.af-agent-meta dt {
+  color: var(--af-color-muted);
+  font-size: var(--af-text-xs);
+  font-weight: 700;
+}
+
+.af-agent-meta dd {
+  margin: var(--af-space-1) 0 0;
+  overflow-wrap: anywhere;
+}
+
 .af-actions {
   display: flex;
   flex-wrap: wrap;
@@ -37,4 +100,3 @@
 .af-inline-form {
   min-width: 150px;
 }
-
