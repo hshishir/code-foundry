@@ -44,6 +44,17 @@ def test_dashboard_includes_created_feature_title(client: TestClient) -> None:
     assert "Visible roadmap item" in response.text
 
 
+def test_dashboard_lists_implemented_agents(client: TestClient) -> None:
+    response = client.get("/", headers=HTML_HEADERS)
+
+    assert response.status_code == 200
+    assert "Implemented agents" in response.text
+    assert "Fake Designer" in response.text
+    assert "Fake Coder" in response.text
+    assert "Fake Reviewer" in response.text
+    assert "Running sessions" in response.text
+
+
 def test_sessions_page_includes_created_session_persona_and_status(
     client: TestClient,
 ) -> None:
@@ -65,4 +76,3 @@ def test_sessions_page_includes_created_session_persona_and_status(
     assert response.status_code == 200
     assert "reviewer" in response.text
     assert "running" in response.text
-
